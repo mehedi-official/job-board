@@ -1,3 +1,10 @@
+<script>
+
+	import { goto } from "$app/navigation";
+
+    let id = crypto.randomUUID();
+
+</script>
 <header class="  bg-charcoal-200 text-silver-200 h-screen">
     <section class="xl:container mx-auto h-full flex flex-col justify-between">
         <nav class=" flex items-center justify-between border-b border-charcoal-100">
@@ -72,9 +79,9 @@
     </section>
 </header>
 
-<main class=" bg-charcoal-200 text-silver-200 pb-24">
-    <div class="xl:container mx-auto flex">
-        <aside class=" pt-12 border-r border-charcoal-100 min-w-96">
+<main class=" bg-charcoal-200 text-silver-200 pb-24 relative">
+    <div class="xl:container mx-auto flex items-start">
+        <aside class=" pt-12 border-r border-charcoal-100 min-w-96 sticky top-0 h-dvh">
             <div class=" pb-4 px-10 border-b border-charcoal-100">
                 <h3 class=" text-xl/5 font-medium">Filters</h3>
             </div>
@@ -93,8 +100,8 @@
                 <select name="" id="" class=" bg-charcoal-200 p-4 border border-charcoal-100 mt-4 w-full"><option value="">ANYTIME</option></select>
             </div>
         </aside>
-        <section>
-            <article class="flex flex-col gap-6 py-12 px-14 border-b border-charcoal-100">
+        <section class="regular">
+            <article onclick={()=> goto(`/job/${id}`)} class="flex flex-col gap-6 py-12 px-14 border-b text-silver-100 border-charcoal-100 hover:bg-[#080808] cursor-pointer">
                 <header class="flex justify-between items-center">
                     <div class="flex items-center gap-4">
                         <div>
@@ -105,18 +112,129 @@
                             </svg>
                         </div>
                         <div>
-                            <h3>Software Developer</h3>
-                            <p>Discord <span></span> Junior <span></span> BDT 30-40k</p>
+                            <h3 class="font-bold text-[18px]/6 mb-1">Software Developer</h3>
+                            <p class="font-medium text-xs flex gap-3">Discord <span>&bull;</span> Junior <span>&bull;</span> BDT 30-40k</p>
                         </div>
                     </div>
-                    <div>
-                        <p>On-site, Mirpur DOHS</p>
-                        <p>Posted 5 min ago</p>
+                    <div class=" text-right">
+                        <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg> <span>On-site, Mirpur DOHS</span></p>
+                        <p class="text-charcoal-50 font-normal text-sm/4">Posted 5 min ago</p>
                     </div>
                 </header>
-                <p class=" font-normal text-sm text-silver-100">Google's software engineers develop the next-generation technologies that change how billions of users connect, explore, and interact with information and one another. Our products need to handle information at massive scale, and extend well beyond web search ... <span class=" text-primary">Read More</span></p>
+                <p class=" font-normal text-sm">Google's software engineers develop the next-generation technologies that change how billions of users connect, explore, and interact with information and one another. Our products need to handle information at massive scale, and extend well beyond web search ... <span class=" text-primary">Read More</span></p>
+            </article>
+
+            <article class="flex flex-col gap-6 py-12 px-14 border-b text-silver-100 border-charcoal-100 hover:bg-[#080808] cursor-pointer">
+                <header class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" fill="#5865F2"/>
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#323232"/>
+                            <path d="M36.317 20.1556C34.7873 19.4537 33.147 18.9366 31.4319 18.6404C31.4007 18.6347 31.3695 18.649 31.3534 18.6775C31.1424 19.0528 30.9087 19.5423 30.7451 19.927C28.9004 19.6508 27.0652 19.6508 25.2583 19.927C25.0946 19.5337 24.8525 19.0528 24.6406 18.6775C24.6245 18.6499 24.5933 18.6356 24.562 18.6404C22.8479 18.9356 21.2076 19.4527 19.6769 20.1556C19.6637 20.1613 19.6523 20.1708 19.6448 20.1832C16.5334 24.8316 15.681 29.3657 16.0992 33.8436C16.1011 33.8655 16.1134 33.8864 16.1304 33.8997C18.1832 35.4073 20.1717 36.3225 22.1233 36.9291C22.1545 36.9386 22.1876 36.9272 22.2075 36.9015C22.6691 36.2711 23.0806 35.6063 23.4335 34.9073C23.4543 34.8664 23.4344 34.8178 23.3919 34.8016C22.7391 34.554 22.1176 34.2521 21.5197 33.9093C21.4724 33.8816 21.4687 33.814 21.5122 33.7816C21.638 33.6873 21.7638 33.5893 21.884 33.4902C21.9057 33.4721 21.936 33.4683 21.9615 33.4797C25.8893 35.273 30.1415 35.273 34.023 33.4797C34.0485 33.4674 34.0788 33.4712 34.1015 33.4893C34.2216 33.5883 34.3475 33.6873 34.4742 33.7816C34.5177 33.814 34.5149 33.8816 34.4676 33.9093C33.8697 34.2588 33.2482 34.554 32.5945 34.8006C32.552 34.8168 32.533 34.8664 32.5538 34.9073C32.9143 35.6054 33.3258 36.2701 33.7789 36.9005C33.7978 36.9272 33.8319 36.9386 33.8631 36.9291C35.8241 36.3225 37.8126 35.4073 39.8654 33.8997C39.8834 33.8864 39.8948 33.8664 39.8967 33.8445C40.3971 28.6676 39.0585 24.1706 36.3482 20.1841C36.3416 20.1708 36.3303 20.1613 36.317 20.1556ZM24.02 31.117C22.8375 31.117 21.8631 30.0313 21.8631 28.6981C21.8631 27.3648 22.8186 26.2791 24.02 26.2791C25.2309 26.2791 26.1958 27.3743 26.1769 28.6981C26.1769 30.0313 25.2214 31.117 24.02 31.117ZM31.9947 31.117C30.8123 31.117 29.8379 30.0313 29.8379 28.6981C29.8379 27.3648 30.7933 26.2791 31.9947 26.2791C33.2056 26.2791 34.1705 27.3743 34.1516 28.6981C34.1516 30.0313 33.2056 31.117 31.9947 31.117Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[18px]/6 mb-1">Software Developer</h3>
+                            <p class="font-medium text-xs flex gap-3">Discord <span>&bull;</span> Junior <span>&bull;</span> BDT 30-40k</p>
+                        </div>
+                    </div>
+                    <div class=" text-right">
+                        <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg> <span>On-site, Mirpur DOHS</span></p>
+                        <p class="text-charcoal-50 font-normal text-sm/4">Posted 5 min ago</p>
+                    </div>
+                </header>
+                <p class=" font-normal text-sm">Google's software engineers develop the next-generation technologies that change how billions of users connect, explore, and interact with information and one another. Our products need to handle information at massive scale, and extend well beyond web search ... <span class=" text-primary">Read More</span></p>
+            </article>
+
+            <article class="flex flex-col gap-6 py-12 px-14 border-b text-silver-100 border-charcoal-100 hover:bg-[#080808] cursor-pointer">
+                <header class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" fill="#5865F2"/>
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#323232"/>
+                            <path d="M36.317 20.1556C34.7873 19.4537 33.147 18.9366 31.4319 18.6404C31.4007 18.6347 31.3695 18.649 31.3534 18.6775C31.1424 19.0528 30.9087 19.5423 30.7451 19.927C28.9004 19.6508 27.0652 19.6508 25.2583 19.927C25.0946 19.5337 24.8525 19.0528 24.6406 18.6775C24.6245 18.6499 24.5933 18.6356 24.562 18.6404C22.8479 18.9356 21.2076 19.4527 19.6769 20.1556C19.6637 20.1613 19.6523 20.1708 19.6448 20.1832C16.5334 24.8316 15.681 29.3657 16.0992 33.8436C16.1011 33.8655 16.1134 33.8864 16.1304 33.8997C18.1832 35.4073 20.1717 36.3225 22.1233 36.9291C22.1545 36.9386 22.1876 36.9272 22.2075 36.9015C22.6691 36.2711 23.0806 35.6063 23.4335 34.9073C23.4543 34.8664 23.4344 34.8178 23.3919 34.8016C22.7391 34.554 22.1176 34.2521 21.5197 33.9093C21.4724 33.8816 21.4687 33.814 21.5122 33.7816C21.638 33.6873 21.7638 33.5893 21.884 33.4902C21.9057 33.4721 21.936 33.4683 21.9615 33.4797C25.8893 35.273 30.1415 35.273 34.023 33.4797C34.0485 33.4674 34.0788 33.4712 34.1015 33.4893C34.2216 33.5883 34.3475 33.6873 34.4742 33.7816C34.5177 33.814 34.5149 33.8816 34.4676 33.9093C33.8697 34.2588 33.2482 34.554 32.5945 34.8006C32.552 34.8168 32.533 34.8664 32.5538 34.9073C32.9143 35.6054 33.3258 36.2701 33.7789 36.9005C33.7978 36.9272 33.8319 36.9386 33.8631 36.9291C35.8241 36.3225 37.8126 35.4073 39.8654 33.8997C39.8834 33.8864 39.8948 33.8664 39.8967 33.8445C40.3971 28.6676 39.0585 24.1706 36.3482 20.1841C36.3416 20.1708 36.3303 20.1613 36.317 20.1556ZM24.02 31.117C22.8375 31.117 21.8631 30.0313 21.8631 28.6981C21.8631 27.3648 22.8186 26.2791 24.02 26.2791C25.2309 26.2791 26.1958 27.3743 26.1769 28.6981C26.1769 30.0313 25.2214 31.117 24.02 31.117ZM31.9947 31.117C30.8123 31.117 29.8379 30.0313 29.8379 28.6981C29.8379 27.3648 30.7933 26.2791 31.9947 26.2791C33.2056 26.2791 34.1705 27.3743 34.1516 28.6981C34.1516 30.0313 33.2056 31.117 31.9947 31.117Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[18px]/6 mb-1">Software Developer</h3>
+                            <p class="font-medium text-xs flex gap-3">Discord <span>&bull;</span> Junior <span>&bull;</span> BDT 30-40k</p>
+                        </div>
+                    </div>
+                    <div class=" text-right">
+                        <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg> <span>On-site, Mirpur DOHS</span></p>
+                        <p class="text-charcoal-50 font-normal text-sm/4">Posted 5 min ago</p>
+                    </div>
+                </header>
+                <p class=" font-normal text-sm">Google's software engineers develop the next-generation technologies that change how billions of users connect, explore, and interact with information and one another. Our products need to handle information at massive scale, and extend well beyond web search ... <span class=" text-primary">Read More</span></p>
+            </article>
+
+            <article class="flex flex-col gap-6 py-12 px-14 border-b text-silver-100 border-charcoal-100 hover:bg-[#080808] cursor-pointer">
+                <header class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" fill="#5865F2"/>
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#323232"/>
+                            <path d="M36.317 20.1556C34.7873 19.4537 33.147 18.9366 31.4319 18.6404C31.4007 18.6347 31.3695 18.649 31.3534 18.6775C31.1424 19.0528 30.9087 19.5423 30.7451 19.927C28.9004 19.6508 27.0652 19.6508 25.2583 19.927C25.0946 19.5337 24.8525 19.0528 24.6406 18.6775C24.6245 18.6499 24.5933 18.6356 24.562 18.6404C22.8479 18.9356 21.2076 19.4527 19.6769 20.1556C19.6637 20.1613 19.6523 20.1708 19.6448 20.1832C16.5334 24.8316 15.681 29.3657 16.0992 33.8436C16.1011 33.8655 16.1134 33.8864 16.1304 33.8997C18.1832 35.4073 20.1717 36.3225 22.1233 36.9291C22.1545 36.9386 22.1876 36.9272 22.2075 36.9015C22.6691 36.2711 23.0806 35.6063 23.4335 34.9073C23.4543 34.8664 23.4344 34.8178 23.3919 34.8016C22.7391 34.554 22.1176 34.2521 21.5197 33.9093C21.4724 33.8816 21.4687 33.814 21.5122 33.7816C21.638 33.6873 21.7638 33.5893 21.884 33.4902C21.9057 33.4721 21.936 33.4683 21.9615 33.4797C25.8893 35.273 30.1415 35.273 34.023 33.4797C34.0485 33.4674 34.0788 33.4712 34.1015 33.4893C34.2216 33.5883 34.3475 33.6873 34.4742 33.7816C34.5177 33.814 34.5149 33.8816 34.4676 33.9093C33.8697 34.2588 33.2482 34.554 32.5945 34.8006C32.552 34.8168 32.533 34.8664 32.5538 34.9073C32.9143 35.6054 33.3258 36.2701 33.7789 36.9005C33.7978 36.9272 33.8319 36.9386 33.8631 36.9291C35.8241 36.3225 37.8126 35.4073 39.8654 33.8997C39.8834 33.8864 39.8948 33.8664 39.8967 33.8445C40.3971 28.6676 39.0585 24.1706 36.3482 20.1841C36.3416 20.1708 36.3303 20.1613 36.317 20.1556ZM24.02 31.117C22.8375 31.117 21.8631 30.0313 21.8631 28.6981C21.8631 27.3648 22.8186 26.2791 24.02 26.2791C25.2309 26.2791 26.1958 27.3743 26.1769 28.6981C26.1769 30.0313 25.2214 31.117 24.02 31.117ZM31.9947 31.117C30.8123 31.117 29.8379 30.0313 29.8379 28.6981C29.8379 27.3648 30.7933 26.2791 31.9947 26.2791C33.2056 26.2791 34.1705 27.3743 34.1516 28.6981C34.1516 30.0313 33.2056 31.117 31.9947 31.117Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[18px]/6 mb-1">Software Developer</h3>
+                            <p class="font-medium text-xs flex gap-3">Discord <span>&bull;</span> Junior <span>&bull;</span> BDT 30-40k</p>
+                        </div>
+                    </div>
+                    <div class=" text-right">
+                        <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg> <span>On-site, Mirpur DOHS</span></p>
+                        <p class="text-charcoal-50 font-normal text-sm/4">Posted 5 min ago</p>
+                    </div>
+                </header>
+                <p class=" font-normal text-sm">Google's software engineers develop the next-generation technologies that change how billions of users connect, explore, and interact with information and one another. Our products need to handle information at massive scale, and extend well beyond web search ... <span class=" text-primary">Read More</span></p>
+            </article>
+
+            <article class="flex flex-col gap-6 py-12 px-14 border-b text-silver-100 border-charcoal-100 hover:bg-[#080808] cursor-pointer">
+                <header class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" fill="#5865F2"/>
+                            <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#323232"/>
+                            <path d="M36.317 20.1556C34.7873 19.4537 33.147 18.9366 31.4319 18.6404C31.4007 18.6347 31.3695 18.649 31.3534 18.6775C31.1424 19.0528 30.9087 19.5423 30.7451 19.927C28.9004 19.6508 27.0652 19.6508 25.2583 19.927C25.0946 19.5337 24.8525 19.0528 24.6406 18.6775C24.6245 18.6499 24.5933 18.6356 24.562 18.6404C22.8479 18.9356 21.2076 19.4527 19.6769 20.1556C19.6637 20.1613 19.6523 20.1708 19.6448 20.1832C16.5334 24.8316 15.681 29.3657 16.0992 33.8436C16.1011 33.8655 16.1134 33.8864 16.1304 33.8997C18.1832 35.4073 20.1717 36.3225 22.1233 36.9291C22.1545 36.9386 22.1876 36.9272 22.2075 36.9015C22.6691 36.2711 23.0806 35.6063 23.4335 34.9073C23.4543 34.8664 23.4344 34.8178 23.3919 34.8016C22.7391 34.554 22.1176 34.2521 21.5197 33.9093C21.4724 33.8816 21.4687 33.814 21.5122 33.7816C21.638 33.6873 21.7638 33.5893 21.884 33.4902C21.9057 33.4721 21.936 33.4683 21.9615 33.4797C25.8893 35.273 30.1415 35.273 34.023 33.4797C34.0485 33.4674 34.0788 33.4712 34.1015 33.4893C34.2216 33.5883 34.3475 33.6873 34.4742 33.7816C34.5177 33.814 34.5149 33.8816 34.4676 33.9093C33.8697 34.2588 33.2482 34.554 32.5945 34.8006C32.552 34.8168 32.533 34.8664 32.5538 34.9073C32.9143 35.6054 33.3258 36.2701 33.7789 36.9005C33.7978 36.9272 33.8319 36.9386 33.8631 36.9291C35.8241 36.3225 37.8126 35.4073 39.8654 33.8997C39.8834 33.8864 39.8948 33.8664 39.8967 33.8445C40.3971 28.6676 39.0585 24.1706 36.3482 20.1841C36.3416 20.1708 36.3303 20.1613 36.317 20.1556ZM24.02 31.117C22.8375 31.117 21.8631 30.0313 21.8631 28.6981C21.8631 27.3648 22.8186 26.2791 24.02 26.2791C25.2309 26.2791 26.1958 27.3743 26.1769 28.6981C26.1769 30.0313 25.2214 31.117 24.02 31.117ZM31.9947 31.117C30.8123 31.117 29.8379 30.0313 29.8379 28.6981C29.8379 27.3648 30.7933 26.2791 31.9947 26.2791C33.2056 26.2791 34.1705 27.3743 34.1516 28.6981C34.1516 30.0313 33.2056 31.117 31.9947 31.117Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-[18px]/6 mb-1">Software Developer</h3>
+                            <p class="font-medium text-xs flex gap-3">Discord <span>&bull;</span> Junior <span>&bull;</span> BDT 30-40k</p>
+                        </div>
+                    </div>
+                    <div class=" text-right">
+                        <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg> <span>On-site, Mirpur DOHS</span></p>
+                        <p class="text-charcoal-50 font-normal text-sm/4">Posted 5 min ago</p>
+                    </div>
+                </header>
+                <p class=" font-normal text-sm">Google's software engineers develop the next-generation technologies that change how billions of users connect, explore, and interact with information and one another. Our products need to handle information at massive scale, and extend well beyond web search ... <span class=" text-primary">Read More</span></p>
             </article>
         </section>
     </div>
     
 </main>
+
+<style>
+    
+</style>
