@@ -1,5 +1,13 @@
 <script>
-    import BackgroundImage from '$lib/background.jpg'
+    import BackgroundImage from '$lib/background.jpg';
+	let { data } = $props();
+
+    /**
+	 * @param {string} string
+	 */
+    function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 </script>
 
 <header class="bg-charcoal-200">
@@ -25,7 +33,7 @@
     <img src={BackgroundImage} alt="Pattern" class="w-full h-60">
 </div>
 
-<main class="bg-charcoal-200 text-silver-100 flex gap-24 items-start 2xl:px-80 px-48 pt-10">
+<main class="bg-charcoal-200 text-silver-100 flex gap-24 items-start 2xl:px-80 px-48 py-10">
     <section>
         <article>
             <div>
@@ -36,65 +44,69 @@
                 </svg>
             </div>
             <div class="flex justify-between items-start mt-6 mb-3">
-                <h1 class="font-bold text-xl max-w-64">Software Developer at Discord</h1>
+                <h1 class="font-bold text-xl max-w-64">{data.records.title} at {data.records.company_name}</h1>
                 <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> <span>On-site, Mirpur DOHS</span>
+                </svg> <span>{capitalizeFirstLetter(data.records.location_type)}, {data.records.location}</span>
             </p>
             </div>
-            <p class="text-base/5 font-normal">Join Urban Luxe as an Interior Design Project Manager, where you'll lead and orchestrate the seamless execution of our design projects, ensuring every detail reflects our commitment to excellence.</p>
+            {@html data.records.why_join_us}
+            <!-- <p class="text-base/5 font-normal">Join Urban Luxe as an Interior Design Project Manager, where you'll lead and orchestrate the seamless execution of our design projects, ensuring every detail reflects our commitment to excellence.</p> -->
         </article>
 
         <article>
             <h2>About Us</h2>
-            <p>Mantra Technologies is a leading innovator in providing cutting-edge software solutions. We specialize in creating seamless and intuitive digital experiences for our clients across various industries. Our team is passionate about technology and design, and we are looking for a talented UI/UX Designer to join us in transforming ideas into engaging user interfaces and exceptional user experiences.</p>
+            {@html data.records.about_us}
+            <!-- <p>Mantra Technologies is a leading innovator in providing cutting-edge software solutions. We specialize in creating seamless and intuitive digital experiences for our clients across various industries. Our team is passionate about technology and design, and we are looking for a talented UI/UX Designer to join us in transforming ideas into engaging user interfaces and exceptional user experiences.</p> -->
         </article>
 
         <article>
             <h2>Your Responsibility</h2>
-            <ul>
+            {@html data.records.responsibilities}
+            <!-- <ul>
                 <li>Build high-quality code to create beautiful FrontEnd for games with intuitive and exciting gameplay.</li>
                 <li>Collaborate with Developers, Testers, and Artists in a cross-functional agile team.</li>
                 <li>Make a real impact on the final shape of products by pushing the latest mobile and browser technology to the max.</li>
                 <li>Build high-quality code to create beautiful FrontEnd for games with intuitive and exciting gameplay.</li>
                 <li>Collaborate with Developers, Testers, and Artists in a cross-functional agile team.</li>
                 <li>Make a real impact on the final shape of products by pushing the latest mobile and browser technology to the max.</li>
-            </ul>
+            </ul> -->
         </article>
 
         <article>
             <h2>Skills & Qualification</h2>
-            <ul>
+            {@html data.records.skill_qualifications}
+            <!-- <ul>
                 <li>Proficient in JavaScript and TypeScript.</li>
                 <li>Knowledgeable in OOP and Design Patterns.</li>
                 <li>Able to write clean, maintainable code.</li>
                 <li>Have an eye for detail and an intuition for tasteful, elegant, smooth visual effects.</li>
                 <li>Fluent in English.</li>
                 <li>Have an eye for detail and an intuition for tasteful, elegant, smooth visual effects.</li>
-            </ul>
+            </ul> -->
         </article>
 
         <article>
             <h2>Benefits</h2>
-            <p>We're a growth stage startup with lots of exciting milestones ahead. We value health and wellness at Vestwell and in addition to a dedicated Employee Wellbeing Committee, we offer competitive health coverage and an open vacation policy. We have adopted a remote-hybrid office policy, but all employees are welcome at our bright, comfortable office with many workspace options in midtown Manhattan so everyone has a setting that is the most productive for them. We provide our team with all the equipment they need (plus a few perks!) to work effectively remotely. Oh, and naturally we have a great 401(k) plan!</p>
+            {@html data.records.benefits}
+            <!-- <p>We're a growth stage startup with lots of exciting milestones ahead. We value health and wellness at Vestwell and in addition to a dedicated Employee Wellbeing Committee, we offer competitive health coverage and an open vacation policy. We have adopted a remote-hybrid office policy, but all employees are welcome at our bright, comfortable office with many workspace options in midtown Manhattan so everyone has a setting that is the most productive for them. We provide our team with all the equipment they need (plus a few perks!) to work effectively remotely. Oh, and naturally we have a great 401(k) plan!</p> -->
         </article>
     </section>
-    <aside class="min-w-80 sticky top-4 h-dvh">
+    <aside class="min-w-80 sticky top-4">
         <div class=" mb-6 flex gap-4 items-center">
-            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">1-2 years</span>
+            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records.experience_range.range.min}-{data.records.experience_range.range.max} years</span>
             <span>&bull;</span>
-            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">Junior</span>
+            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{capitalizeFirstLetter(data.records.job_position)}</span>
             <span>&bull;</span>
-            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">20-30k</span>
+            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records.salary_range.range.min / 1000}-{data.records.salary_range.range.max / 1000}k</span>
         </div>
-        <button class="bg-primary w-full py-4 uppercase text-lg/5 font-medium text-charcoal-200">Apply Now</button>
+        <button onclick={()=> window.location = data.records.job_source_link} class="bg-primary w-full py-4 uppercase text-lg/5 font-medium text-charcoal-200">Apply Now</button>
     </aside>
 </main>
 
 <style>
-    article {
-        margin-bottom: 3rem;
+    :global(article) {
 
         h2 {
             font-size: 18px;
@@ -102,14 +114,13 @@
             line-height: 1.3;
             margin-bottom: 12px;
         }
-        ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-        }
-
-        ul li {
-            padding-top: 4px;
-            padding-bottom: 4px;
-        }
+    }
+    :global(article ul) {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+    }
+    :global(article ul li) {
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 </style>
