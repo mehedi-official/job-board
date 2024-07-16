@@ -154,6 +154,18 @@
     
 </main>
 
+<svelte:head>
+    <title>Urban Tech Jobs - Land Your Dream Tech Job in Bangladesh.</title>
+    <meta name="description" content="Launch your tech career at Urban Tech Jobs Bangladesh. We connect top tech talent with exciting opportunities in coding, UX/UI, AI & cyber. Easy apply. Free for candidates & hiring managers.">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Urban Tech Jobs - Land Your Dream Tech Job in Bangladesh."/>
+    <meta property="og:description" content="Launch your tech career at Urban Tech Jobs Bangladesh. We connect top tech talent with exciting opportunities in coding, UX/UI, AI & cyber. Easy apply. Free for candidates & hiring managers."/>
+    <meta property="og:url" content="https://techjob-bd.netlify.app/"/>
+    <meta property="og:site_name" content="Urban Jobs"/>
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="Urban Jobs" />
+</svelte:head>
+
 <style>
     :global(article > p) {
         font-size: 14px;

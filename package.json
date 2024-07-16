@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"dayjs": "^1.11.11",
-		"pocketbase": "^0.21.3"
+		"pocketbase": "^0.21.3",
+		"posthog-js": "^1.148.0"
 	}
 }
