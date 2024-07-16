@@ -49,22 +49,26 @@
                 </svg>
             </div>
             <div class="flex justify-between items-start mt-6 mb-3 max-[420px]:flex-col max-[420px]:gap-3">
-                <h1 class="font-bold text-xl max-w-64">{data.records.title} at {data.records.company_name}</h1>
+                <h1 class="font-bold text-xl max-w-64 text-silver-200">{data.records.title} at {data.records.company_name}</h1>
                 <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14 6.6665C14 11.3332 8 15.3332 8 15.3332C8 15.3332 2 11.3332 2 6.6665C2 5.0752 2.63214 3.54908 3.75736 2.42386C4.88258 1.29864 6.4087 0.666504 8 0.666504C9.5913 0.666504 11.1174 1.29864 12.2426 2.42386C13.3679 3.54908 14 5.0752 14 6.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M8 8.6665C9.10457 8.6665 10 7.77107 10 6.6665C10 5.56193 9.10457 4.6665 8 4.6665C6.89543 4.6665 6 5.56193 6 6.6665C6 7.77107 6.89543 8.6665 8 8.6665Z" stroke="white" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg> <span>{capitalizeFirstLetter(data.records.location_type)}, {data.records.location}</span>
             </p>
             </div>
-            {@html data.records.why_join_us}
+            <div class="paragraph">
+                {@html data.records.why_join_us}
+            </div>
             <!-- <p class="text-base/5 font-normal">Join Urban Luxe as an Interior Design Project Manager, where you'll lead and orchestrate the seamless execution of our design projects, ensuring every detail reflects our commitment to excellence.</p> -->
         </article>
 
+        {#if data.records.about_us}
         <article>
             <h2>About Us</h2>
             {@html data.records.about_us}
             <!-- <p>Mantra Technologies is a leading innovator in providing cutting-edge software solutions. We specialize in creating seamless and intuitive digital experiences for our clients across various industries. Our team is passionate about technology and design, and we are looking for a talented UI/UX Designer to join us in transforming ideas into engaging user interfaces and exceptional user experiences.</p> -->
         </article>
+        {/if}
 
         <article>
             <h2>Your Responsibility</h2>
@@ -92,11 +96,13 @@
             </ul> -->
         </article>
 
+        {#if data.records.benefits}
         <article>
             <h2>Benefits</h2>
             {@html data.records.benefits}
             <!-- <p>We're a growth stage startup with lots of exciting milestones ahead. We value health and wellness at Vestwell and in addition to a dedicated Employee Wellbeing Committee, we offer competitive health coverage and an open vacation policy. We have adopted a remote-hybrid office policy, but all employees are welcome at our bright, comfortable office with many workspace options in midtown Manhattan so everyone has a setting that is the most productive for them. We provide our team with all the equipment they need (plus a few perks!) to work effectively remotely. Oh, and naturally we have a great 401(k) plan!</p> -->
         </article>
+        {/if}
     </section>
     <aside class="min-w-80 sticky top-4 max-[420px]:w-full">
         <div class=" mb-6 flex gap-4 items-center">
@@ -112,20 +118,40 @@
 
 <style>
     :global(article) {
-
+        margin-bottom: 2.5rem;
+        
         h2 {
             font-size: 18px;
             font-weight: bold;
             line-height: 1.3;
             margin-bottom: 12px;
         }
+        div {
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    }
+    :global(article p) {
+        font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
     }
     :global(article ul) {
         list-style-type: disc;
         padding-left: 1.5rem;
+        color: rgba(255, 255, 255, 0.7);
     }
     :global(article ul li) {
         padding-top: 4px;
         padding-bottom: 4px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    :global(article a) {
+        text-decoration: underline;
+        color: rgba(255, 255, 255);
+        font-weight: 600;
     }
 </style>
