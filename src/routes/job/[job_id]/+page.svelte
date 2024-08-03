@@ -1,5 +1,7 @@
 <script>
     import BackgroundImage from '$lib/background.jpg';
+	import { add_Job_Post, delete_Job_Post, get_Local_ID_By_Job_Post } from '$lib/database/index.ts';
+	import { onMount } from 'svelte';
 	let { data } = $props();
 
     /**
@@ -8,6 +10,22 @@
     function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+    let isBookmarked = $state();
+    onMount(async () => {
+        let local_indexDB_id = await get_Local_ID_By_Job_Post(data.records.id);
+        console.log(local_indexDB_id);
+
+        if(local_indexDB_id === false) isBookmarked = false;
+        else if(typeof local_indexDB_id === 'number') isBookmarked = true;
+
+        console.log(isBookmarked)
+    });
+
+    const cryptoRandom = () => crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1);
+    const cryptoRandomNumber = (min, max) => Math.floor(cryptoRandom() * (max - min + 1) + min);
+    let colors = ['#8C3061', '#5865f2', '#1A3636', '#49243E', '#A76F6F']
+    let colorCode = colors[cryptoRandomNumber(0, colors.length - 1)]
 </script>
 
 <div class="bg-primary text-center py-3 px-4">
@@ -25,10 +43,10 @@
                 </div>
             </a>
             <div class=" text-base/4 font-normal text-silver-100 uppercase max-[420px]:hidden">
+                <a href="/saved" class=" px-12 py-6 border-l border-charcoal-100">Saved Jobs</a>
                 <a href="/" class=" px-12 py-6 border-l border-charcoal-100">Contribute</a>
-                <a href="/" class=" px-12 py-6 border-l border-charcoal-100">About Us</a>
                 <a href="/" class=" px-12 py-6 border-l border-charcoal-100">Contact Us</a>
-                <a href="/" class=" px-12 py-6 border-l border-charcoal-100 text-primary">Give a Gift</a>
+                <a href="/" class=" px-12 py-6 border-l border-charcoal-100 text-primary hover:text-[#438F00]">Give a Gift</a>
             </div>
         </nav>
     </div>
@@ -41,13 +59,15 @@
 <main class="bg-charcoal-200 text-silver-100 flex gap-24 items-start 2xl:px-80 px-48 py-10 max-[420px]:flex-col max-[420px]:px-5">
     <section>
         <article>
-            <div>
-                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" fill="#5865F2"/>
-                <rect x="0.5" y="0.5" width="55" height="55" rx="3.5" stroke="#323232"/>
-                <path d="M36.317 20.1556C34.7873 19.4537 33.147 18.9366 31.4319 18.6404C31.4007 18.6347 31.3695 18.649 31.3534 18.6775C31.1424 19.0528 30.9087 19.5423 30.7451 19.927C28.9004 19.6508 27.0652 19.6508 25.2583 19.927C25.0946 19.5337 24.8525 19.0528 24.6406 18.6775C24.6245 18.6499 24.5933 18.6356 24.562 18.6404C22.8479 18.9356 21.2076 19.4527 19.6769 20.1556C19.6637 20.1613 19.6523 20.1708 19.6448 20.1832C16.5334 24.8316 15.681 29.3657 16.0992 33.8436C16.1011 33.8655 16.1134 33.8864 16.1304 33.8997C18.1832 35.4073 20.1717 36.3225 22.1233 36.9291C22.1545 36.9386 22.1876 36.9272 22.2075 36.9015C22.6691 36.2711 23.0806 35.6063 23.4335 34.9073C23.4543 34.8664 23.4344 34.8178 23.3919 34.8016C22.7391 34.554 22.1176 34.2521 21.5197 33.9093C21.4724 33.8816 21.4687 33.814 21.5122 33.7816C21.638 33.6873 21.7638 33.5893 21.884 33.4902C21.9057 33.4721 21.936 33.4683 21.9615 33.4797C25.8893 35.273 30.1415 35.273 34.023 33.4797C34.0485 33.4674 34.0788 33.4712 34.1015 33.4893C34.2216 33.5883 34.3475 33.6873 34.4742 33.7816C34.5177 33.814 34.5149 33.8816 34.4676 33.9093C33.8697 34.2588 33.2482 34.554 32.5945 34.8006C32.552 34.8168 32.533 34.8664 32.5538 34.9073C32.9143 35.6054 33.3258 36.2701 33.7789 36.9005C33.7978 36.9272 33.8319 36.9386 33.8631 36.9291C35.8241 36.3225 37.8126 35.4073 39.8654 33.8997C39.8834 33.8864 39.8948 33.8664 39.8967 33.8445C40.3971 28.6676 39.0585 24.1706 36.3482 20.1841C36.3416 20.1708 36.3303 20.1613 36.317 20.1556ZM24.02 31.117C22.8375 31.117 21.8631 30.0313 21.8631 28.6981C21.8631 27.3648 22.8186 26.2791 24.02 26.2791C25.2309 26.2791 26.1958 27.3743 26.1769 28.6981C26.1769 30.0313 25.2214 31.117 24.02 31.117ZM31.9947 31.117C30.8123 31.117 29.8379 30.0313 29.8379 28.6981C29.8379 27.3648 30.7933 26.2791 31.9947 26.2791C33.2056 26.2791 34.1705 27.3743 34.1516 28.6981C34.1516 30.0313 33.2056 31.117 31.9947 31.117Z" fill="white"/>
-                </svg>
-            </div>
+            {#if data.records.company_logo}
+                <div class="w-14 h-14 rounded-sm">
+                    <img src={data.records.company_logo} alt="Discord logo">
+                </div>
+            {:else}
+                <section style:background={colorCode} class="w-14 h-14 rounded-sm inline-flex items-center justify-center text-2xl/6 font-semibold font-mono">
+                    {data.records.company_name.charAt(0)}
+                </section>
+            {/if}
             <div class="flex justify-between items-start mt-6 mb-3 max-[420px]:flex-col max-[420px]:gap-3">
                 <h1 class="font-bold text-xl max-w-64 text-silver-200">{data.records.title} at {data.records.company_name}</h1>
                 <p class="font-medium text-base/6 flex gap-2 items-center mb-1"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +132,30 @@
             <span>&bull;</span>
             <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records.salary_range.range.min / 1000}-{data.records.salary_range.range.max / 1000}k</span>
         </div>
-        <button onclick={()=> window.location = data.records.job_source_link} class="bg-primary w-full py-4 uppercase text-lg/5 font-medium text-charcoal-200">Apply Now</button>
+        <button onclick={()=> window.location = data.records.job_source_link} class="mb-4 h-12 bg-primary hover:bg-[#65DA00] w-full py-4 uppercase text-lg/5 font-medium text-charcoal-200">Apply Now</button>
+        
+        {#if isBookmarked}
+            <button onclick={async () => {
+                let local_indexDB_id = await get_Local_ID_By_Job_Post(data.records.id);
+                if(typeof local_indexDB_id === 'number') await delete_Job_Post(local_indexDB_id);
+                isBookmarked = false;
+            }} class="w-full h-12 py-4 uppercase text-base/4 font-normal text-primary flex items-center bg-[#080808] justify-center gap-3 hover:bg-[#0d0d0d]">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.6667 14L8.00001 10.6667L3.33334 14V3.33333C3.33334 2.97971 3.47382 2.64057 3.72387 2.39052C3.97392 2.14048 4.31305 2 4.66668 2H11.3333C11.687 2 12.0261 2.14048 12.2762 2.39052C12.5262 2.64057 12.6667 2.97971 12.6667 3.33333V14Z" fill="#88F32B" stroke="#88F32B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> 
+                <p>Remove from Bookmark</p>
+            </button>
+        {:else}
+            <button onclick={async () => {
+                await add_Job_Post(data.records.id);
+                isBookmarked = true;
+            }} class="w-full h-12 py-4 uppercase text-base/4 font-normal text-silver-200 flex items-center border border-charcoal-100 justify-center gap-3 hover:bg-[#080808]">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.6667 14L8.00001 10.6667L3.33334 14V3.33333C3.33334 2.97971 3.47382 2.64057 3.72387 2.39052C3.97392 2.14048 4.31305 2 4.66668 2H11.3333C11.687 2 12.0261 2.14048 12.2762 2.39052C12.5262 2.64057 12.6667 2.97971 12.6667 3.33333V14Z" stroke="white" stroke-opacity="0.9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p>Save Job</p>
+            </button>
+        {/if}       
     </aside>
 </main>
 
@@ -151,7 +194,7 @@
     }
     :global(article a) {
         text-decoration: underline;
-        color: rgba(255, 255, 255);
+        color: #88F32B;
         font-weight: 600;
     }
 </style>
