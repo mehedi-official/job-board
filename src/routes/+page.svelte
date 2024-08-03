@@ -2,6 +2,7 @@
 	import { add_Job_Post, delete_Job_Post, get_bookmarkIds, get_Local_ID_By_Job_Post, local_db } from '$lib/database';
     import dayjs from 'dayjs';
     import relativeTime from 'dayjs/plugin/relativeTime'
+	import posthog from 'posthog-js';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
     let { data } = $props();
@@ -31,6 +32,7 @@
 
     function handleExplore(e: MouseEvent) {
         e.preventDefault();
+        posthog.capture('my mehedi event', { property: 'sumaiya value' });
         job_content?.scrollIntoView({ behavior: "smooth", block: 'start', inline: 'start' })
     }
     

@@ -5,10 +5,10 @@ export const load = async () => {
 
   if (browser) {
     posthog.init(
-      'phc_DkcHyFcgT8lW6epc2SUmpyO0EBAWh5lIQ6ZxKguK6Wh',
+      'phc_zSLSM5Ax9pn1Sihb4maO8U1IY3QHXrWS2IirJmTGYXO',
       { 
         api_host: 'https://us.i.posthog.com',
-        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+        person_profiles: 'always', // or 'always' to create profiles for anonymous users as well
       }
     )
   }
