@@ -1,6 +1,7 @@
 <script>
     import BackgroundImage from '$lib/background.jpg';
 	import { add_Job_Post, delete_Job_Post, get_Local_ID_By_Job_Post } from '$lib/database/index.ts';
+	import posthog from 'posthog-js';
 	import { onMount } from 'svelte';
 	let { data } = $props();
 
@@ -132,7 +133,12 @@
             <span>&bull;</span>
             <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records.salary_range.range.min / 1000}-{data.records.salary_range.range.max / 1000}k</span>
         </div>
-        <button onclick={()=> window.location = data.records.job_source_link} class="mb-4 h-12 bg-primary hover:bg-[#65DA00] w-full py-4 uppercase text-lg/5 font-medium text-charcoal-200">Apply Now</button>
+        <button onclick={()=> {
+            posthog.capture('applied_job', {
+                id: data.records.id
+            });
+            window.location = data.records.job_source_link;
+        }} class="mb-4 h-12 bg-primary hover:bg-[#65DA00] w-full py-4 uppercase text-lg/5 font-medium text-charcoal-200">Apply Now</button>
         
         {#if isBookmarked}
             <button onclick={async () => {

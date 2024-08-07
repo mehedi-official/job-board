@@ -5,17 +5,22 @@
     import dayjs from 'dayjs';
     import relativeTime from 'dayjs/plugin/relativeTime'
 	import { fly } from 'svelte/transition';
+	import Loader from '$lib/components/Loader.svelte';
     dayjs.extend(relativeTime);
 
     let results = $state([]);
+    let isLoading = $state(false);
 
     function test(data: any, bookmarkIds: string[]) {
-        results = data.map(record => ({
+        results = data.map((record: { id: string; }) => ({
             ...record,
             isBookmarked: bookmarkIds.includes(record.id)
         }));
+
+        isLoading = false;
     }
     onMount(async () => {
+        isLoading = true;
         let bookmarkIds =  await get_bookmarkIds();
         let recordsPromise = bookmarkIds.map(bookmark => getJobList(bookmark));
         let records = Promise.all(recordsPromise);
@@ -39,7 +44,7 @@
 
 <header class="bg-charcoal-200 text-silver-200">
     <nav class="border-b border-charcoal-100 max-[420px]:justify-center">
-        <section class="xl:container mx-auto flex items-center justify-between">
+        <section class="xl:container mx-auto flex items-center justify-between max-[420px]:justify-center">
             <a href="/" class="py-6">
                 <svg width="99" height="24" viewBox="0 0 99 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.9605 12.0244L22.8524 8.21181C23.7505 7.33198 23.7505 5.96334 22.8524 5.08351L17.3139 10.5092L16.316 9.53157L20.2578 5.67006C21.1559 4.79023 21.1559 3.42159 20.2578 2.54176L14.6694 8.0163L13.6715 7.0387L17.6632 3.12831C18.5613 2.24848 18.5613 0.879837 17.6632 0L12.0249 5.42566L8.43243 1.85744C7.5343 0.977598 6.13721 0.977598 5.23908 1.85744L10.4283 6.94094L9.38045 7.96741L5.78794 4.44807C4.88982 3.56823 3.49271 3.56823 2.59459 4.44807L7.78379 9.53157L6.78586 10.5092L3.19334 6.98982C2.29521 6.10998 0.898129 6.10998 0 6.98982L5.08939 11.9756L1.1975 15.7882C0.299373 16.668 0.299373 18.0367 1.1975 18.9165L6.73597 13.4908L7.73389 14.4684L3.7921 18.3299C2.89397 19.2098 2.89397 20.5784 3.7921 21.4583L9.38045 15.9837L10.3784 16.9613L6.38669 20.8717C5.48856 21.7515 5.48856 23.1202 6.38669 24L11.975 18.5255L15.5676 22.0937C16.4657 22.9735 17.8628 22.9735 18.7609 22.0937L13.5717 17.0102L14.6195 15.9837L18.2121 19.5031C19.1102 20.3829 20.5073 20.3829 21.4054 19.5031L16.2162 14.4196L17.2141 13.442L20.8066 16.9613C21.7048 17.8411 23.1019 17.8411 24 16.9613L18.9605 12.0244ZM12.0249 8.5051L13.0229 9.48269L11.975 10.5092L10.9771 9.53157L12.0249 8.5051ZM9.38045 12.9043L8.48233 12.0244L9.38045 11.1446L10.2786 12.0733L9.38045 12.9043ZM12.0249 15.446L11.027 14.4684L12.0748 13.442L13.0728 14.4196L12.0249 15.446ZM13.7713 11.9756L14.6694 11.0957L15.5676 11.9756L14.6694 12.8554L13.7713 11.9756Z" fill="white"/>
@@ -58,9 +63,14 @@
 
 <main class="bg-charcoal-200 text-silver-200 relative min-h-dvh">
     <section class="xl:container mx-auto">
-        <div class=" mx-48">
+        <div class=" mx-48 max-[420px]:mx-4 ">
             <h1 class=" text-2xl py-6 font-semibold">Saved Items</h1>
-            {#if results.length > 0}
+            {#if isLoading}
+                <div class="flex justify-center">
+                    <Loader width={"2rem"} borderColor={"#ffffff"}/>
+                </div>
+            {:else}
+                {#if results.length > 0}
                 {#each results as {id, title, company_name, company_logo, job_position, location, location_type, created, salary_range, why_join_us, isBookmarked}, i}
                 {@const colorCode = colors[cryptoRandomNumber(0, colors.length - 1)]}
                 <a href={`/job/${id}`}>
@@ -122,25 +132,26 @@
                     </article>
                 </a>
                 {/each}
-            {:else}
-            <section in:fly={{duration: 800, y: 112}} class="flex flex-col items-center gap-6 mt-14">
-                <div>
-                    <svg width="266" height="206" viewBox="0 0 266 206" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M259.193 75.5259C248.828 102.433 190.76 63.6678 175.366 88.0502C156.161 118.468 211.26 168.992 184.798 193.361C163.731 212.762 149.432 146.6 122.567 136.673C99.6973 128.223 72.3116 156.368 51.2847 144.028C31.2398 132.265 15.0576 100.526 26.579 80.3421C41.4036 54.3717 81.6274 60.9459 107.384 45.751C114.216 41.7202 113.444 31.0895 119.243 25.6759C125.713 19.635 133.343 12.2648 142.134 13.3077C151.017 14.3616 153.6 27.2173 161.828 30.728C172.465 35.2666 184.896 31.2026 195.403 36.0365C218.591 46.7056 268.369 51.7081 259.193 75.5259Z" fill="#101010"/>
-                        <path d="M158.333 75.527V153.154C158.333 163.062 151.227 167.23 142.548 162.447L115.693 147.482C112.823 145.91 108.177 145.91 105.307 147.482L78.4517 162.447C69.7733 167.23 62.6667 163.062 62.6667 153.154V75.527C62.6667 63.842 72.2333 54.2754 83.9183 54.2754H137.082C148.767 54.2754 158.333 63.842 158.333 75.527Z" fill="white"/>
-                        <path d="M199.333 49.0143V126.641C199.333 136.549 192.227 140.718 183.548 135.934L158.333 121.858V75.5276C158.333 63.8426 148.767 54.2761 137.082 54.2761H103.667V49.0143C103.667 37.3293 113.233 27.7627 124.918 27.7627H178.082C189.767 27.7627 199.333 37.3293 199.333 49.0143Z" fill="#88F32B" fill-opacity="0.5"/>
-                        <path d="M124.167 90.9704H115.625V82.4287C115.625 79.627 113.302 77.3037 110.5 77.3037C107.698 77.3037 105.375 79.627 105.375 82.4287V90.9704H96.8333C94.0317 90.9704 91.7083 93.2937 91.7083 96.0954C91.7083 98.897 94.0317 101.22 96.8333 101.22H105.375V109.762C105.375 112.564 107.698 114.887 110.5 114.887C113.302 114.887 115.625 112.564 115.625 109.762V101.22H124.167C126.968 101.22 129.292 98.897 129.292 96.0954C129.292 93.2937 126.968 90.9704 124.167 90.9704Z" fill="black" fill-opacity="0.2"/>
-                        <rect x="8" y="137" width="2" height="18" rx="1" fill="white"/>
-                        <rect y="147" width="2" height="18" rx="1" transform="rotate(-90 0 147)" fill="white"/>
-                        <rect x="221" y="35" width="2" height="18" rx="1" fill="white"/>
-                        <rect x="213" y="45" width="2" height="18" rx="1" transform="rotate(-90 213 45)" fill="white"/>
-                        <rect x="35" y="19" width="1" height="9" rx="0.5" fill="white"/>
-                        <rect x="31" y="24" width="1" height="9" rx="0.5" transform="rotate(-90 31 24)" fill="white"/>
-                        <ellipse cx="137.5" cy="193.5" rx="121.5" ry="5.5" fill="#101010"/>
-                    </svg>                                               
-                </div>
-                <h3 class="text-4xl/9 font-semibold">You haven’t saved any jobs</h3>
-            </section>
+                {:else if results.length === 0}
+                <section in:fly={{duration: 800, y: 112}} class="flex flex-col items-center gap-6 mt-14">
+                    <div>
+                        <svg width="266" height="206" viewBox="0 0 266 206" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M259.193 75.5259C248.828 102.433 190.76 63.6678 175.366 88.0502C156.161 118.468 211.26 168.992 184.798 193.361C163.731 212.762 149.432 146.6 122.567 136.673C99.6973 128.223 72.3116 156.368 51.2847 144.028C31.2398 132.265 15.0576 100.526 26.579 80.3421C41.4036 54.3717 81.6274 60.9459 107.384 45.751C114.216 41.7202 113.444 31.0895 119.243 25.6759C125.713 19.635 133.343 12.2648 142.134 13.3077C151.017 14.3616 153.6 27.2173 161.828 30.728C172.465 35.2666 184.896 31.2026 195.403 36.0365C218.591 46.7056 268.369 51.7081 259.193 75.5259Z" fill="#101010"/>
+                            <path d="M158.333 75.527V153.154C158.333 163.062 151.227 167.23 142.548 162.447L115.693 147.482C112.823 145.91 108.177 145.91 105.307 147.482L78.4517 162.447C69.7733 167.23 62.6667 163.062 62.6667 153.154V75.527C62.6667 63.842 72.2333 54.2754 83.9183 54.2754H137.082C148.767 54.2754 158.333 63.842 158.333 75.527Z" fill="white"/>
+                            <path d="M199.333 49.0143V126.641C199.333 136.549 192.227 140.718 183.548 135.934L158.333 121.858V75.5276C158.333 63.8426 148.767 54.2761 137.082 54.2761H103.667V49.0143C103.667 37.3293 113.233 27.7627 124.918 27.7627H178.082C189.767 27.7627 199.333 37.3293 199.333 49.0143Z" fill="#88F32B" fill-opacity="0.5"/>
+                            <path d="M124.167 90.9704H115.625V82.4287C115.625 79.627 113.302 77.3037 110.5 77.3037C107.698 77.3037 105.375 79.627 105.375 82.4287V90.9704H96.8333C94.0317 90.9704 91.7083 93.2937 91.7083 96.0954C91.7083 98.897 94.0317 101.22 96.8333 101.22H105.375V109.762C105.375 112.564 107.698 114.887 110.5 114.887C113.302 114.887 115.625 112.564 115.625 109.762V101.22H124.167C126.968 101.22 129.292 98.897 129.292 96.0954C129.292 93.2937 126.968 90.9704 124.167 90.9704Z" fill="black" fill-opacity="0.2"/>
+                            <rect x="8" y="137" width="2" height="18" rx="1" fill="white"/>
+                            <rect y="147" width="2" height="18" rx="1" transform="rotate(-90 0 147)" fill="white"/>
+                            <rect x="221" y="35" width="2" height="18" rx="1" fill="white"/>
+                            <rect x="213" y="45" width="2" height="18" rx="1" transform="rotate(-90 213 45)" fill="white"/>
+                            <rect x="35" y="19" width="1" height="9" rx="0.5" fill="white"/>
+                            <rect x="31" y="24" width="1" height="9" rx="0.5" transform="rotate(-90 31 24)" fill="white"/>
+                            <ellipse cx="137.5" cy="193.5" rx="121.5" ry="5.5" fill="#101010"/>
+                        </svg>                                               
+                    </div>
+                    <h3 class="text-4xl/9 font-semibold">You haven’t saved any jobs</h3>
+                </section>
+                {/if}
             {/if}
         </div>
     </section>
