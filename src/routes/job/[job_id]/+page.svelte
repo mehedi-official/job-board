@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
     import BackgroundImage from '$lib/background.jpg';
 	import { add_Job_Post, delete_Job_Post, get_Local_ID_By_Job_Post } from '$lib/database/index.ts';
 	import posthog from 'posthog-js';

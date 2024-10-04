@@ -41,7 +41,7 @@
 }
 
     let captureFilters = $state(
-        {time: '', postition: '', location_type: '', category: ''}
+        {time: '0', postition: '', location_type: '', category: ''}
     );
     let records = $state(data.records);
     let filteredData = $state([]);
