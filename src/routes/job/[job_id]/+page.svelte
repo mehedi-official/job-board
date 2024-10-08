@@ -10,8 +10,11 @@
 	 * @param {string} string
 	 */
     function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+        if(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        return string
+    }
 
     let isBookmarked = $state();
     onMount(async () => {
@@ -67,7 +70,7 @@
                 </div>
             {:else}
                 <section style:background={colorCode} class="w-14 h-14 rounded-sm inline-flex items-center justify-center text-2xl/6 font-semibold font-mono">
-                    {data.records.company_name.charAt(0)}
+                    {data.records.company_name?.charAt(0)}
                 </section>
             {/if}
             <div class="flex justify-between items-start mt-6 mb-3 max-[420px]:flex-col max-[420px]:gap-3">
@@ -128,11 +131,11 @@
     </section>
     <aside class="min-w-80 sticky top-4 max-[420px]:w-full">
         <div class=" mb-6 flex gap-4 items-center">
-            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records.experience_range.range.min}-{data.records.experience_range.range.max} years</span>
+            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records?.experience_range?.range?.min}-{data.records?.experience_range?.range?.max} years</span>
             <span>&bull;</span>
             <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{capitalizeFirstLetter(data.records.job_position)}</span>
             <span>&bull;</span>
-            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records.salary_range.range.min / 1000}-{data.records.salary_range.range.max / 1000}k</span>
+            <span class="px-2 py-[6px] bg-silver-100 text-charcoal-200 rounded align-middle">{data.records?.salary_range?.range?.min / 1000}-{data.records?.salary_range?.range?.max / 1000}k</span>
         </div>
         <button onclick={()=> {
             posthog.capture('applied_job', {

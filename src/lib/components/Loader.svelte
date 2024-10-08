@@ -1,16 +1,16 @@
 <script lang="ts">
-    let { borderColor, width }: {borderColor:String, width: String} = $props();
+	let { size = 16, borderColor = '#013e00' }: { size?: number; borderColor?: string } = $props();
 </script>
 
-<div class="loader" style:width={width} style:border-color={borderColor}></div>
+<div class="loader" style="width: {size / 16}rem; --border-color: {borderColor}"></div>
 
 <style>
 	/* HTML: <div class="loader"></div> */
 	.loader {
 		display: inline-block;
 		aspect-ratio: 1;
-		border-radius: 100%;
-		border: 2px solid;
+		border-radius: 50%;
+		border: 2px solid var(--border-color);
 		animation:
 			l20-1 0.8s infinite linear alternate,
 			l20-2 1.6s infinite linear;
