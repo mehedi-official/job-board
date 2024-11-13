@@ -2,6 +2,8 @@
 	import { navigating } from "$app/stores";
 	import Loader from "$lib/components/Loader.svelte";
   import "../app.css";
+  /** @type {{children?: import('svelte').Snippet}} */
+  let { children } = $props();
 </script>
  
  {#if $navigating}
@@ -13,4 +15,4 @@
     </section>
   </section>
  {/if} 
-<slot />
+{@render children?.()}
