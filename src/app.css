@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 body {
-    font-family: "Space Grotesk", sans-serif;
+	font-family: 'Space Grotesk', sans-serif;
 }
 
-::-moz-selection { /* Code for Firefox */
-    color: black;
-    background: #88F32B;
-  }
-  
-  ::selection {
-    color: black;
-    background: #88F32B;
-  }
+::-moz-selection {
+	/* Code for Firefox */
+	color: black;
+	background: #88f32b;
+}
+
+::selection {
+	color: black;
+	background: #88f32b;
+}
